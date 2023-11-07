@@ -160,7 +160,7 @@ class DebitCardControllerTest extends TestCase
 
         $response = $this->putJson("/api/debit-cards/{$card->id}");
         $response
-            ->assertStatus(422)
+            ->assertUnprocessable()
             ->assertJsonFragment(['is_active' => ['The is active field is required.']]);
     }
 
@@ -200,7 +200,7 @@ class DebitCardControllerTest extends TestCase
     public function testCreateDebitCardReturnsErrorWithMissingData() {
         $response = $this->postJson('/api/debit-cards');
         $response
-            ->assertStatus(422)
+            ->assertUnprocessable()
             ->assertJsonFragment(['type' => ['The type field is required.']]);
     }
 
