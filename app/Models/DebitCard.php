@@ -59,7 +59,7 @@ class DebitCard extends Authenticatable
      *
      * @return BelongsTo
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
@@ -69,7 +69,7 @@ class DebitCard extends Authenticatable
      *
      * @return HasMany
      */
-    public function debitCardTransactions()
+    public function debitCardTransactions(): HasMany
     {
         return $this->hasMany(DebitCardTransaction::class, 'debit_card_id');
     }
