@@ -25,7 +25,8 @@ class ReceivedRepayment extends Model
     protected $fillable = [
         'loan_id',
         'amount',
-        'currency_code'
+        'currency_code',
+        'received_at'
     ];
 
     /**
