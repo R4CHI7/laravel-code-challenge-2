@@ -24,8 +24,6 @@ class LoanService
      */
     public function createLoan(User $user, int $amount, string $currencyCode, int $terms, string $processedAt): Loan
     {
-        $loanDate = Carbon::create(2020, 01, 20);
-
         DB::beginTransaction();
         $loan = Loan::create([
             'user_id' => $user->id,
@@ -33,7 +31,7 @@ class LoanService
             'currency_code' => $currencyCode,
             'terms' => $terms,
             'outstanding_amount' => $amount,
-            'processed_at' => $loanDate->toDateString(),
+            'processed_at' => $processedAt,
             'status' => Loan::STATUS_DUE
         ]);
 
@@ -47,7 +45,7 @@ class LoanService
                 'outstanding_amount' => $repaymentAmount,
                 'currency_code' => $currencyCode,
                 'status' => ScheduledRepayment::STATUS_DUE,
-                'due_date' => Carbon::create(2020, 01, 20)->addMonths($i + 1)->toDateString()
+                'due_date' => Carbon::parse($processedAt)->addMonths($i + 1)->toDateString()
             ]);
         }
         DB::commit();
